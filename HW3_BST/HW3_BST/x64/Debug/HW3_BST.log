@@ -1,0 +1,4 @@
+﻿  BST.c
+D:\YonseiCode\Data_sturcture2023\Data_structure_code\HW3_BST\HW3_BST\BST.c(61,4): warning C4013: 'gets'이(가) 정의되지 않았습니다. extern은 int형을 반환하는 것으로 간주합니다.
+D:\YonseiCode\Data_sturcture2023\Data_structure_code\HW3_BST\HW3_BST\BST.c(169,1): warning C4715: 'insert': 모든 제어 경로에서 값을 반환하지는 않습니다.
+  HW3_BST.vcxproj -> D:\YonseiCode\Data_sturcture2023\Data_structure_code\HW3_BST\x64\Debug\HW3_BST.exe
