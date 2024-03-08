@@ -4,17 +4,17 @@
 #include<string.h>
 #include<stdbool.h>
 
-//±¸Á¶Ã¼ ¼±¾ğ
+//êµ¬ì¡°ì²´ ì„ ì–¸
 typedef struct anod* TreePointer;
 
-typedef struct anod { //ÇÑ ³ëµåÀÇ ±¸Á¶ 
+typedef struct anod { //í•œ ë…¸ë“œì˜ êµ¬ì¡° 
 
-	int sno; //ÇĞ¹ø
-	char name[50]; //ÀÌ¸§ 
-	TreePointer leftChild, rightChild; // ³ëµå ÀÚ½Ä Æ÷ÀÎÅÍ
-} Ty_Node; // ³ëµåº°Äª
+	int sno; //í•™ë²ˆ
+	char name[50]; //ì´ë¦„ 
+	TreePointer leftChild, rightChild; // ë…¸ë“œ ìì‹ í¬ì¸í„°
+} Ty_Node; // ë…¸ë“œë³„ì¹­
 
-//ÇÔ¼ö ¼±¾ğ 
+//í•¨ìˆ˜ ì„ ì–¸ 
 bool insert(TreePointer* node, char key[50], int sno);
 TreePointer modifiedSearch(TreePointer tree, char key[50]);
 void inorder(TreePointer ptr);
@@ -25,9 +25,9 @@ int leaf_count(TreePointer tree);
 void ch(TreePointer root, char key[50]);
 int get_ht(TreePointer curr, char key[50], int count);
 
-//¸ŞÀÎ ÇÔ¼ö 
+//ë©”ì¸ í•¨ìˆ˜ 
 int main(void) {
-	int ht, index, sno; //³ôÀÌ,¹è¿­ÀÇ ÀÎµ¦½º, ÇĞ»ı ÇĞ¹ø ¼±¾ğ
+	int ht, index, sno; //ë†’ì´,ë°°ì—´ì˜ ì¸ë±ìŠ¤, í•™ìƒ í•™ë²ˆ ì„ ì–¸
 	char* pt;
 	char order[50], arr[3][50], name[50];
 	bool a;
@@ -37,15 +37,15 @@ int main(void) {
 	
 	TreePointer root = NULL, parent = NULL, tmp = NULL;
 
-	//ÆÄÀÏ ¿­±â,´İ±â 
+	//íŒŒì¼ ì—´ê¸°,ë‹«ê¸° 
 	if (fp == NULL) {
-		printf("ÆÄÀÏÀÌ ¾ø½À´Ï´Ù. \n");
+		printf("íŒŒì¼ì´ ì—†ìŠµë‹ˆë‹¤. \n");
 		return 0;
 	}
 	else {
-		//ÆÄÀÏ¿¡¼­ ÇĞ»ıÁ¤º¸¸¦ ÀĞ°í, ÀÌÁø Å½»öÆ®¸®¿¡ Ãß°¡
+		//íŒŒì¼ì—ì„œ í•™ìƒì •ë³´ë¥¼ ì½ê³ , ì´ì§„ íƒìƒ‰íŠ¸ë¦¬ì— ì¶”ê°€
 		while (!feof(fp)) {
-			int res = fscanf(fp, "%d %s", &sno, &name); //ÆÄÀÏ ÇĞ¹ø, ÀÌ¸§ ÀÔ·ÂÇÏ±â
+			int res = fscanf(fp, "%d %s", &sno, &name); //íŒŒì¼ í•™ë²ˆ, ì´ë¦„ ì…ë ¥í•˜ê¸°
 			if (res < 2)
 						break;
 			insert(&root, name, sno);
@@ -57,70 +57,70 @@ int main(void) {
 
 		//main roof
 	while (1) {
-		printf("¼öÇàÇÒ ÀÛ¾÷Àº (in, sp, de, se, ht, ch, le, ex) ? ");
+		printf("ìˆ˜í–‰í•  ì‘ì—…ì€ (in, sp, de, se, ht, ch, le, ex) ? ");
 		 gets(order);
 	
 		index = 0;
-		// ÀÔ·Â¹®ÀÚ ¾Ë±â
-		pt = strtok(order," "); // ¹®ÀÚ¿­ ÀÚ¸£±â 
+		// ì…ë ¥ë¬¸ì ì•Œê¸°
+		pt = strtok(order," "); // ë¬¸ìì—´ ìë¥´ê¸° 
 		
 		while (pt != NULL)
 		{
-			strcpy(arr[index++], pt); //¹®ÀÚ¿­ º¹»ç
+			strcpy(arr[index++], pt); //ë¬¸ìì—´ ë³µì‚¬
 			pt = strtok(NULL," ");
 
 		}
-		//bst¿¡ ÀÔ·ÂÇÑ µ¥ÀÌÅÍ Ãß°¡ 
-		if (strcmp(arr[0],"in") == 0) { //¹®ÀÚ¿­ºñ±³ 
+		//bstì— ì…ë ¥í•œ ë°ì´í„° ì¶”ê°€ 
+		if (strcmp(arr[0],"in") == 0) { //ë¬¸ìì—´ë¹„êµ 
 			a = false;
 			sno = atoi(arr[1]); //string to in
 			strcpy(name, arr[2]);
-			a = insert(&root, name, sno); //ÇĞ»ı µ¥ÀÌÅÍ Á¤º¸ »ğÀÔ
+			a = insert(&root, name, sno); //í•™ìƒ ë°ì´í„° ì •ë³´ ì‚½ì…
 			if (a == true)
-				printf("ÀÔ·Â ¼º°ø! level = %d \n", get_ht(root, name, 0)); //»ğÀÔÀÌ ¼º°ø½Ã, ÀÔ·Â¼º°ø°ú ÇÔ²² Æ®¸® ³ôÀÌ Ãâ·Â
+				printf("ì…ë ¥ ì„±ê³µ! level = %d \n", get_ht(root, name, 0)); //ì‚½ì…ì´ ì„±ê³µì‹œ, ì…ë ¥ì„±ê³µê³¼ í•¨ê»˜ íŠ¸ë¦¬ ë†’ì´ ì¶œë ¥
 		}
-		//¸ğµç µ¥ÀÌÅÍ Ãú·Â
+		//ëª¨ë“  ë°ì´í„° ì¸¨ë ¥
 		else if (strcmp(arr[0],"sp") == 0)
 		{
 			system("cls");
-			printf("ÆÄÀÏÀÇ ³»¿ëÀº ´ÙÀ½°ú °°½À´Ï´Ù \n");
-			inorder(root); //ÁßÀ§ ¼øÈ¸·Î ¸ğµç µ¥ÀÌÅÍ Ãâ·Â
+			printf("íŒŒì¼ì˜ ë‚´ìš©ì€ ë‹¤ìŒê³¼ ê°™ìŠµë‹ˆë‹¤ \n");
+			inorder(root); //ì¤‘ìœ„ ìˆœíšŒë¡œ ëª¨ë“  ë°ì´í„° ì¶œë ¥
 	
 		}
-		//ÀÔ·ÂÇÑ µ¥ÀÌÅÍ »èÁ¦
+		//ì…ë ¥í•œ ë°ì´í„° ì‚­ì œ
 		else if (strcmp(arr[0],"de") == 0) {
 			strcpy(name, arr[1]);
-			BST_Delete(&root, name); //»ğÀÔµÈ µ¥ÀÌÅÍ »èÁ¦
+			BST_Delete(&root, name); //ì‚½ì…ëœ ë°ì´í„° ì‚­ì œ
 		}
-	//ÀÔ·ÂÇÑ µ¥ÀÌÅÍ°¡ ÀÖ´ÂÁö È®ÀÎ 
+	//ì…ë ¥í•œ ë°ì´í„°ê°€ ìˆëŠ”ì§€ í™•ì¸ 
 		else if (strcmp(arr[0],"se") == 0) {
 			strcpy(name, arr[1]);
-			tmp = search_BST(root, name, &parent); //µ¥ÀÌÅÍ Å½»ö ¼öÇà
-			//µ¥ÀÌÅÍ°¡ ÀÖÀ¸¸é ÀÌ¸§,ÇĞ¹ø, ·¹º§(À§Ä¡) Ãâ·ÂÇÏ±â
-			printf("ÀÌ¸§: %s, ÇĞ¹ø: %d, ·¹º§À§Ä¡ = %d \n", tmp->name, tmp->sno, get_ht(root, name,0)); 
+			tmp = search_BST(root, name, &parent); //ë°ì´í„° íƒìƒ‰ ìˆ˜í–‰
+			//ë°ì´í„°ê°€ ìˆìœ¼ë©´ ì´ë¦„,í•™ë²ˆ, ë ˆë²¨(ìœ„ì¹˜) ì¶œë ¥í•˜ê¸°
+			printf("ì´ë¦„: %s, í•™ë²ˆ: %d, ë ˆë²¨ìœ„ì¹˜ = %d \n", tmp->name, tmp->sno, get_ht(root, name,0)); 
 		
 		}
-		//Æ®¸® ³ôÀÌ Ãâ·Â
+		//íŠ¸ë¦¬ ë†’ì´ ì¶œë ¥
 		else if (strcmp(arr[0],"ht") == 0)
 		{
-			ht = pre_order_ht(root, 0); //preorder·Î ³ôÀÌ Ãâ·Â ¼öÇà
+			ht = pre_order_ht(root, 0); //preorderë¡œ ë†’ì´ ì¶œë ¥ ìˆ˜í–‰
 			printf("height = %d\n", ht);
 		}
-		//ÀÔ·Â¹ŞÀº °ªÀÇ Â÷ÀÏµå Ãâ·Â
+		//ì…ë ¥ë°›ì€ ê°’ì˜ ì°¨ì¼ë“œ ì¶œë ¥
 		else if (strcmp(arr[0],"ch") == 0)
 		{
 			strcpy(name, arr[1]);
-			ch(root, name); //ÀÔ·ÂÇÑ °ªÀÇ ÀÚ½Ä Ãâ·Â
+			ch(root, name); //ì…ë ¥í•œ ê°’ì˜ ìì‹ ì¶œë ¥
 		}
-		//³ëµå °¹¼ö 
+		//ë…¸ë“œ ê°¯ìˆ˜ 
 		else if (strcmp(arr[0],"le") == 0)
 		{
-			printf("number of leaf node = %d\n", leaf_count(root)); //³ëµå(ÀÙ)ÀÇ °³¼ö Ãâ·Â
+			printf("number of leaf node = %d\n", leaf_count(root)); //ë…¸ë“œ(ì)ì˜ ê°œìˆ˜ ì¶œë ¥
 		}
-		//ÇÁ·Î±×·¥ Á¾·á
+		//í”„ë¡œê·¸ë¨ ì¢…ë£Œ
 		else if (strcmp(arr[0],"ex") == 0)
 		{
-			printf("ÇÁ·Î±×·¥À» Á¾·áÇÕ´Ï´Ù!\n");
+			printf("í”„ë¡œê·¸ë¨ì„ ì¢…ë£Œí•©ë‹ˆë‹¤!\n");
 			system("pause");
 			return 0;
 		}
@@ -130,37 +130,37 @@ int main(void) {
 	return 0;
 }
 
-//»ğÀÔÇÔ¼ö
+//ì‚½ì…í•¨ìˆ˜
 bool insert(TreePointer* node, char key[50], int sno) {
-	//»õ·Î¿î ³ëµå »ı¼º, ÃÊ±âÈ­
+	//ìƒˆë¡œìš´ ë…¸ë“œ ìƒì„±, ì´ˆê¸°í™”
 	TreePointer ptr, temp;
 	ptr = (TreePointer)malloc(sizeof(*ptr));
-	strcpy(ptr->name,key); //»õ ³ëµåÀÇ ÀÌ¸§
-	ptr->sno = sno; //»õ ³ëµåÀÇ ÇĞ¹ø 
+	strcpy(ptr->name,key); //ìƒˆ ë…¸ë“œì˜ ì´ë¦„
+	ptr->sno = sno; //ìƒˆ ë…¸ë“œì˜ í•™ë²ˆ 
 	
-	ptr->leftChild = ptr->rightChild = NULL;  // »õ ³ëµåÀÇ ÀÚ½Ä ³ëµå¸¦ NULL·Î ÃÊ±âÈ­
+	ptr->leftChild = ptr->rightChild = NULL;  // ìƒˆ ë…¸ë“œì˜ ìì‹ ë…¸ë“œë¥¼ NULLë¡œ ì´ˆê¸°í™”
 
-	if (!(*node)) {// ºó Æ®¸®ÀÎ °æ¿ì, »õ ³ëµå¸¦ ·çÆ® ³ëµå·Î ¼³Á¤
+	if (!(*node)) {// ë¹ˆ íŠ¸ë¦¬ì¸ ê²½ìš°, ìƒˆ ë…¸ë“œë¥¼ ë£¨íŠ¸ ë…¸ë“œë¡œ ì„¤ì •
 		*node = ptr;
 	}
-	else //ºóÆ®¸®°¡ ¾Æ´Ñ °æ¿ì
+	else //ë¹ˆíŠ¸ë¦¬ê°€ ì•„ë‹Œ ê²½ìš°
 	{
-		temp = modifiedSearch(*node, key); //»õ ³ëµå¸¦ ºÙÀÏ ³ëµå Å½»ö 
+		temp = modifiedSearch(*node, key); //ìƒˆ ë…¸ë“œë¥¼ ë¶™ì¼ ë…¸ë“œ íƒìƒ‰ 
 		
-		if (!temp) { // µ¿ÀÏÇÑ ÀÌ¸§À» °¡Áø ³ëµå°¡ ÀÌ¹Ì Á¸ÀçÇÏ´Â °æ¿ì
-			printf("µ¿ÀÏ Å°ÀÇ ³ëµå°¡ ÀÌ¹Ì Á¸ÀçÇÏ¿© »ğÀÔ ½ÇÆĞ \n");
-			return false; //»ğÀÔ ½ÇÆĞ
+		if (!temp) { // ë™ì¼í•œ ì´ë¦„ì„ ê°€ì§„ ë…¸ë“œê°€ ì´ë¯¸ ì¡´ì¬í•˜ëŠ” ê²½ìš°
+			printf("ë™ì¼ í‚¤ì˜ ë…¸ë“œê°€ ì´ë¯¸ ì¡´ì¬í•˜ì—¬ ì‚½ì… ì‹¤íŒ¨ \n");
+			return false; //ì‚½ì… ì‹¤íŒ¨
 		}
-		else { //temp°¡ °¡¸®Å°´Â ³ëµå¿¡ »õ ³ëµå¸¦ ºÙÀÓ.
-			if (strcmp(key, temp->name) < 0) { // »õ ³ëµåÀÇ ÀÌ¸§ÀÌ ºÎ¸ğ ³ëµåÀÇ ÀÌ¸§º¸´Ù ÀÛÀº °æ¿ì
-				temp->leftChild = ptr; // ¿ŞÂÊ ÀÚ½Ä ³ëµå·Î »ğÀÔ
-				return true; // »ğÀÔ ¼º°ø
+		else { //tempê°€ ê°€ë¦¬í‚¤ëŠ” ë…¸ë“œì— ìƒˆ ë…¸ë“œë¥¼ ë¶™ì„.
+			if (strcmp(key, temp->name) < 0) { // ìƒˆ ë…¸ë“œì˜ ì´ë¦„ì´ ë¶€ëª¨ ë…¸ë“œì˜ ì´ë¦„ë³´ë‹¤ ì‘ì€ ê²½ìš°
+				temp->leftChild = ptr; // ì™¼ìª½ ìì‹ ë…¸ë“œë¡œ ì‚½ì…
+				return true; // ì‚½ì… ì„±ê³µ
 			}
 
-			else { // »õ ³ëµåÀÇ ÀÌ¸§ÀÌ ºÎ¸ğ ³ëµåÀÇ ÀÌ¸§º¸´Ù Å« °æ¿ì
+			else { // ìƒˆ ë…¸ë“œì˜ ì´ë¦„ì´ ë¶€ëª¨ ë…¸ë“œì˜ ì´ë¦„ë³´ë‹¤ í° ê²½ìš°
 				
-				temp->rightChild = ptr; // ¿À¸¥ÂÊ ÀÚ½Ä ³ëµå·Î »ğÀÔ
-				return true; //»ğÀÔ ¼º°ø
+				temp->rightChild = ptr; // ì˜¤ë¥¸ìª½ ìì‹ ë…¸ë“œë¡œ ì‚½ì…
+				return true; //ì‚½ì… ì„±ê³µ
 			}
 
 		}
@@ -168,129 +168,129 @@ bool insert(TreePointer* node, char key[50], int sno) {
 	
 }
 
-//»ğÀÔÀÌ °¡´ÉÇÑÁö Å½»öÇÏ¿© °¡´ÉÇÑÁö È®ÀÎÇÏ´Â ÇÔ¼ö  
+//ì‚½ì…ì´ ê°€ëŠ¥í•œì§€ íƒìƒ‰í•˜ì—¬ ê°€ëŠ¥í•œì§€ í™•ì¸í•˜ëŠ” í•¨ìˆ˜  
 TreePointer modifiedSearch(TreePointer tree, char key[50]) {
-	TreePointer temp = tree;  //ÇöÀç ³ëµå¸¦ °¡¸£Å°´Â Æ÷ÀÎÅÍ º¯¼ö¸¦ temp·Î ¼±¾ğÇÏ°í ÃÊ±âÈ­
-	while (temp) { // temp°¡ ³ÎÀÌ ¾Æ´Ò¶§ ±îÁö ¹İº¹ 
-		if (strcmp(key, temp->name) == 0) { // key °ª°ú ÀÌ¸§ÀÌ °°À» °æ¿ì¿¡
-			// Áßº¹µÈ Å° °ªÀ» Ã£Àº °æ¿ì¿¡ ³Î °ªÀ¸·Î ¹İÈ¯ 
+	TreePointer temp = tree;  //í˜„ì¬ ë…¸ë“œë¥¼ ê°€ë¥´í‚¤ëŠ” í¬ì¸í„° ë³€ìˆ˜ë¥¼ tempë¡œ ì„ ì–¸í•˜ê³  ì´ˆê¸°í™”
+	while (temp) { // tempê°€ ë„ì´ ì•„ë‹ë•Œ ê¹Œì§€ ë°˜ë³µ 
+		if (strcmp(key, temp->name) == 0) { // key ê°’ê³¼ ì´ë¦„ì´ ê°™ì„ ê²½ìš°ì—
+			// ì¤‘ë³µëœ í‚¤ ê°’ì„ ì°¾ì€ ê²½ìš°ì— ë„ ê°’ìœ¼ë¡œ ë°˜í™˜ 
 			return NULL;
 		} 
-		else if (strcmp(key, temp->name) < 0) {  // key °ªÀÌ ³ëµåÀÇ ÀÌ¸§º¸´Ù ÀÛÀ¸¸é
-			if (temp->leftChild == NULL) { //¿ŞÂÊ ÀÚ½Ä ³ëµå°¡ ³Î°ªÀÌ¸é
-				return temp; //ÇöÀç ³ëµå·Î¿¡ ¹İÈ¯
+		else if (strcmp(key, temp->name) < 0) {  // key ê°’ì´ ë…¸ë“œì˜ ì´ë¦„ë³´ë‹¤ ì‘ìœ¼ë©´
+			if (temp->leftChild == NULL) { //ì™¼ìª½ ìì‹ ë…¸ë“œê°€ ë„ê°’ì´ë©´
+				return temp; //í˜„ì¬ ë…¸ë“œë¡œì— ë°˜í™˜
 			}
 			else { 
-				temp = temp->leftChild; //¾Æ´Ï¸é ÇöÀçÀÇ ³ëµå¸¦ ¿ŞÂÊ ÀÚ½Ä ³ëµå·Î ÀÌµ¿ 
+				temp = temp->leftChild; //ì•„ë‹ˆë©´ í˜„ì¬ì˜ ë…¸ë“œë¥¼ ì™¼ìª½ ìì‹ ë…¸ë“œë¡œ ì´ë™ 
 			}
 		}
 		else {
-			if (temp->rightChild == NULL) { //¿À¸¥ÂÊ ÀÚ½ÄÀÌ ³Î°ªÀÌ¸é
-				return temp; //ÇöÀç ³ëµå¿¡ ¹İÈ¯
+			if (temp->rightChild == NULL) { //ì˜¤ë¥¸ìª½ ìì‹ì´ ë„ê°’ì´ë©´
+				return temp; //í˜„ì¬ ë…¸ë“œì— ë°˜í™˜
 			}
 			else {
-				temp = temp->rightChild; //¾Æ´Ï¸é ÇöÀçÀÇ ³ëµå¸¦ ¿À¸¥ÂÊ ÀÚ½Ä ³ëµå·Î ÀÌµ¿
+				temp = temp->rightChild; //ì•„ë‹ˆë©´ í˜„ì¬ì˜ ë…¸ë“œë¥¼ ì˜¤ë¥¸ìª½ ìì‹ ë…¸ë“œë¡œ ì´ë™
 			}
 		}
 	}
-	return temp; //temp °ªÀÌ ³Î°ªÀÌ¸é ³ÎÀ» ÇöÀç³ëµå·Î ¹İÈ¯
+	return temp; //temp ê°’ì´ ë„ê°’ì´ë©´ ë„ì„ í˜„ì¬ë…¸ë“œë¡œ ë°˜í™˜
 }
 
-//inodrer(ÁßÀ§¼øÈ¸) ÇÔ¼ö  ¿ŞÂÊ »Ñ¸® ¿À¸¥ÂÊ Ãâ·Â
+//inodrer(ì¤‘ìœ„ìˆœíšŒ) í•¨ìˆ˜  ì™¼ìª½ ë¿Œë¦¬ ì˜¤ë¥¸ìª½ ì¶œë ¥
 void inorder(TreePointer ptr) {
 	if (ptr)
 	{
-		inorder(ptr->leftChild); //¿ŞÂÊ 
-		printf("%s, %d\n", ptr->name, ptr->sno); // »Ñ¸®
-		inorder(ptr->rightChild); // ¿À¸¥ÂÊ
+		inorder(ptr->leftChild); //ì™¼ìª½ 
+		printf("%s, %d\n", ptr->name, ptr->sno); // ë¿Œë¦¬
+		inorder(ptr->rightChild); // ì˜¤ë¥¸ìª½
 	}
 
 }
 
-//preorder(ÀüÀ§¼øÈ¸)¸¦ ÀÌ¿ëÇÑ hight (³ôÀÌ) ÇÔ¼ö 
+//preorder(ì „ìœ„ìˆœíšŒ)ë¥¼ ì´ìš©í•œ hight (ë†’ì´) í•¨ìˆ˜ 
 int pre_order_ht(TreePointer curr, int lvl) {
-	if (curr == NULL) // ÇöÀç ³ëµå°¡ null ÀÏ¶§
+	if (curr == NULL) // í˜„ì¬ ë…¸ë“œê°€ null ì¼ë•Œ
 	{
-		return lvl; // ÇöÀç ·¹º§·Î ¹İÈ¯
+		return lvl; // í˜„ì¬ ë ˆë²¨ë¡œ ë°˜í™˜
 
 	}
-	/*¿ŞÂÊ ¼­ºêÆ®¸®ÀÇ ³ôÀÌ¿Í ¿À¸¥ÂÊ ¼­ºêÆ®¸®ÀÇ ³ôÀÌ¸¦ ±¸ÇÏ°í 
-	´õ ³ôÀº °ªÀ» ÇöÀç Æ®¸®ÀÇ ³ôÀÌ·Î ¹İÈ¯*/
+	/*ì™¼ìª½ ì„œë¸ŒíŠ¸ë¦¬ì˜ ë†’ì´ì™€ ì˜¤ë¥¸ìª½ ì„œë¸ŒíŠ¸ë¦¬ì˜ ë†’ì´ë¥¼ êµ¬í•˜ê³  
+	ë” ë†’ì€ ê°’ì„ í˜„ì¬ íŠ¸ë¦¬ì˜ ë†’ì´ë¡œ ë°˜í™˜*/
 	int left_ht, right_ht;
 	left_ht = pre_order_ht(curr->leftChild, lvl + 1);
 	right_ht = pre_order_ht(curr->rightChild, lvl + 1);
 	return (left_ht > right_ht ? left_ht : right_ht) ;
 }
 
-//ÀÌÁøÆ®¸® Å½»ö ÅÆ»ö±¸Çö 
+//ì´ì§„íŠ¸ë¦¬ íƒìƒ‰ íƒ¬ìƒ‰êµ¬í˜„ 
 TreePointer search_BST(TreePointer curr, char key[50], TreePointer* par) {
 	
 
-	*par = NULL; // ºÎ¸ğ ³ëµå Æ÷ÀÎÅÍ ÃÊ±âÈ­
-	while (curr != NULL){ // ÇöÀç ³ëµå°¡ nullÀÌ µÉ ¶§±îÁö ¹İº¹
-		// Ã£°íÀÚ ÇÏ´Â Å° °ªÀ» ÇöÀç ³ëµåÀÇ Å° °ª°ú ºñ±³
-		if (strcmp(key, curr->name) == 0){  //ÀÏÄ¡ÇÏ´Â °æ¿ì
-			return curr; //ÇöÀç ³ëµå ¹İÈ¯ 
+	*par = NULL; // ë¶€ëª¨ ë…¸ë“œ í¬ì¸í„° ì´ˆê¸°í™”
+	while (curr != NULL){ // í˜„ì¬ ë…¸ë“œê°€ nullì´ ë  ë•Œê¹Œì§€ ë°˜ë³µ
+		// ì°¾ê³ ì í•˜ëŠ” í‚¤ ê°’ì„ í˜„ì¬ ë…¸ë“œì˜ í‚¤ ê°’ê³¼ ë¹„êµ
+		if (strcmp(key, curr->name) == 0){  //ì¼ì¹˜í•˜ëŠ” ê²½ìš°
+			return curr; //í˜„ì¬ ë…¸ë“œ ë°˜í™˜ 
 		}
-		else if (strcmp(key, curr->name) < 0) { //Å°°ªÀÌ ÀÛÀ» °æ¿ì ¿ŞÂÊ ¼­ºêÆ®¸® Å½»ö
-			*par = curr ; //ÇöÀç ³ëµå¸¦ ºÎ¸ğ³ëµå·Î ¼³Á¤
-			curr = curr->leftChild; //ÇöÀç ³ëµå¸¦ ¿ŞÂÊ ÀÚ½Ä ³ëµå·Î º¯°æ 
+		else if (strcmp(key, curr->name) < 0) { //í‚¤ê°’ì´ ì‘ì„ ê²½ìš° ì™¼ìª½ ì„œë¸ŒíŠ¸ë¦¬ íƒìƒ‰
+			*par = curr ; //í˜„ì¬ ë…¸ë“œë¥¼ ë¶€ëª¨ë…¸ë“œë¡œ ì„¤ì •
+			curr = curr->leftChild; //í˜„ì¬ ë…¸ë“œë¥¼ ì™¼ìª½ ìì‹ ë…¸ë“œë¡œ ë³€ê²½ 
 		}
-		else { //¾Æ´Ï¸é -> Å° °ªÀÌ Å¬ °æ¿ì ¿À¸¥ÂÊ ¼­ºêÆ®¸® Å½»ö
-			*par = curr; //ÇöÀç ³ëµå¸¦ ºÎ¸ğ³ëµå·Î ¼³Á¤
-			curr = curr->rightChild; //ÇöÀç ³ëµå¸¦ ¿À¸¥ÂÊ ÀÚ½Ä ³ëµå·Î º¯°æ 
+		else { //ì•„ë‹ˆë©´ -> í‚¤ ê°’ì´ í´ ê²½ìš° ì˜¤ë¥¸ìª½ ì„œë¸ŒíŠ¸ë¦¬ íƒìƒ‰
+			*par = curr; //í˜„ì¬ ë…¸ë“œë¥¼ ë¶€ëª¨ë…¸ë“œë¡œ ì„¤ì •
+			curr = curr->rightChild; //í˜„ì¬ ë…¸ë“œë¥¼ ì˜¤ë¥¸ìª½ ìì‹ ë…¸ë“œë¡œ ë³€ê²½ 
 		}
 	}
 	
-	return NULL; //Ã£´Â Å°°ªÀÌ ¾ø´Â °æ¿ì null°ªÀ¸·Î ¹İÈ¯
+	return NULL; //ì°¾ëŠ” í‚¤ê°’ì´ ì—†ëŠ” ê²½ìš° nullê°’ìœ¼ë¡œ ë°˜í™˜
 
 }
 
-//BST »èÁ¦ ÇÔ¼ö ±¸Çö
+//BST ì‚­ì œ í•¨ìˆ˜ êµ¬í˜„
 void BST_Delete(TreePointer* root, char key[50]) {
 
 	TreePointer parent = NULL;
-	TreePointer curr = search_BST(*root, key, &parent); // Å°¸¦ °¡Áø ³ëµå¿Í ±× ºÎ¸ğ ³ëµå Å½»ö
+	TreePointer curr = search_BST(*root, key, &parent); // í‚¤ë¥¼ ê°€ì§„ ë…¸ë“œì™€ ê·¸ ë¶€ëª¨ ë…¸ë“œ íƒìƒ‰
 
-	if (curr == NULL) { //Å½»ö ½ÇÆĞÀÎ °æ¿ì (ÇöÀç ³ëµå°¡ ³Î°ªÀÎ °æ¿ì)
-		printf("±×·± ÇĞ»ıÀ» À» Ã£À» ¼ö ¾ø½À´Ï´Ù. ´Ù½Ã È®ÀÎÇØº¸¼¼¿ä \n");
+	if (curr == NULL) { //íƒìƒ‰ ì‹¤íŒ¨ì¸ ê²½ìš° (í˜„ì¬ ë…¸ë“œê°€ ë„ê°’ì¸ ê²½ìš°)
+		printf("ê·¸ëŸ° í•™ìƒì„ ì„ ì°¾ì„ ìˆ˜ ì—†ìŠµë‹ˆë‹¤. ë‹¤ì‹œ í™•ì¸í•´ë³´ì„¸ìš” \n");
 		return;
 	}
 
- // »èÁ¦ÇÒ ³ëµåÀÇ Â÷¼ö°¡ 0ÀÎ °æ¿ì
+ // ì‚­ì œí•  ë…¸ë“œì˜ ì°¨ìˆ˜ê°€ 0ì¸ ê²½ìš°
 	if (curr->leftChild == NULL && curr->rightChild == NULL) {
-		if (parent->leftChild == curr) { // »èÁ¦ÇÒ ³ëµå°¡ ºÎ¸ğ ³ëµåÀÇ ¿ŞÂÊ ÀÚ½ÄÀÎ °æ¿ì
-			parent->leftChild = NULL; // ³Î°ªÀ¸·Î ¹İÈ¯
+		if (parent->leftChild == curr) { // ì‚­ì œí•  ë…¸ë“œê°€ ë¶€ëª¨ ë…¸ë“œì˜ ì™¼ìª½ ìì‹ì¸ ê²½ìš°
+			parent->leftChild = NULL; // ë„ê°’ìœ¼ë¡œ ë°˜í™˜
 		}
-		else { // »èÁ¦ÇÒ ³ëµå°¡ ºÎ¸ğ ³ëµåÀÇ ¿À¸¥ÂÊ ÀÚ½ÄÀÎ °æ¿ì
-			parent->rightChild = NULL; // ¿À¸¥ÂÊ ÀÚ½ÄÀ» ³Î °ªÀ¸·Î ¹İÈ¯
+		else { // ì‚­ì œí•  ë…¸ë“œê°€ ë¶€ëª¨ ë…¸ë“œì˜ ì˜¤ë¥¸ìª½ ìì‹ì¸ ê²½ìš°
+			parent->rightChild = NULL; // ì˜¤ë¥¸ìª½ ìì‹ì„ ë„ ê°’ìœ¼ë¡œ ë°˜í™˜
 		}
-		free(curr); // »èÁ¦ÇÒ ³ëµå ¸Ş¸ğ¸® ÇØÁ¦
-		printf("¼º°øÀûÀ¸·Î »èÁ¦µÇ¾ú½À´Ï´Ù.\n");
+		free(curr); // ì‚­ì œí•  ë…¸ë“œ ë©”ëª¨ë¦¬ í•´ì œ
+		printf("ì„±ê³µì ìœ¼ë¡œ ì‚­ì œë˜ì—ˆìŠµë‹ˆë‹¤.\n");
 	}
-	// »èÁ¦ÇÒ ³ëµåÀÇ Â÷¼ö°¡ 1ÀÎ °æ¿ì
+	// ì‚­ì œí•  ë…¸ë“œì˜ ì°¨ìˆ˜ê°€ 1ì¸ ê²½ìš°
 	else if (curr->leftChild == NULL || curr->rightChild == NULL) {
-		TreePointer child = (curr->leftChild != NULL) ? curr->leftChild : curr->rightChild; // »èÁ¦ÇÒ ³ëµåÀÇ ÀÚ½Ä ³ëµå Å½»ö
+		TreePointer child = (curr->leftChild != NULL) ? curr->leftChild : curr->rightChild; // ì‚­ì œí•  ë…¸ë“œì˜ ìì‹ ë…¸ë“œ íƒìƒ‰
 
-		if (parent->leftChild == curr) { // »èÁ¦ÇÒ ³ëµå°¡ ºÎ¸ğ ³ëµåÀÇ ¿ŞÂÊ ÀÚ½ÄÀÎ °æ¿ì
-			parent->leftChild = child; // »èÁ¦ÇÒ ³ëµå¸¦ ÀÚ½Ä ³ëµå·Î ´ëÃ¼
+		if (parent->leftChild == curr) { // ì‚­ì œí•  ë…¸ë“œê°€ ë¶€ëª¨ ë…¸ë“œì˜ ì™¼ìª½ ìì‹ì¸ ê²½ìš°
+			parent->leftChild = child; // ì‚­ì œí•  ë…¸ë“œë¥¼ ìì‹ ë…¸ë“œë¡œ ëŒ€ì²´
 		}
-		else { // »èÁ¦ÇÒ ³ëµå°¡ ºÎ¸ğ ³ëµåÀÇ ¿À¸¥ÂÊ ÀÚ½ÄÀÎ °æ¿ì
-			parent->rightChild = child; // »èÁ¦ÇÒ ³ëµå¸¦ ÀÚ½Ä ³ëµå·Î ´ëÃ¼
+		else { // ì‚­ì œí•  ë…¸ë“œê°€ ë¶€ëª¨ ë…¸ë“œì˜ ì˜¤ë¥¸ìª½ ìì‹ì¸ ê²½ìš°
+			parent->rightChild = child; // ì‚­ì œí•  ë…¸ë“œë¥¼ ìì‹ ë…¸ë“œë¡œ ëŒ€ì²´
 		}
 
-		printf("¼º°øÀûÀ¸·Î »èÁ¦µÇ¾ú½À´Ï´Ù.\n");
-		printf("ÀÌµ¿ÇÑ ÇĞ»ı: %s\n", child->name); // ÀÌµ¿ÇÑ ÇĞ»ıÀÇ ÀÌ¸§ Ãâ·Â
-		free(curr); // »èÁ¦ÇÒ ³ëµå ¸Ş¸ğ¸® ÇØÁ¦
+		printf("ì„±ê³µì ìœ¼ë¡œ ì‚­ì œë˜ì—ˆìŠµë‹ˆë‹¤.\n");
+		printf("ì´ë™í•œ í•™ìƒ: %s\n", child->name); // ì´ë™í•œ í•™ìƒì˜ ì´ë¦„ ì¶œë ¥
+		free(curr); // ì‚­ì œí•  ë…¸ë“œ ë©”ëª¨ë¦¬ í•´ì œ
 	}
-	// »èÁ¦ÇÒ ³ëµåÀÇ Â÷¼ö°¡ 2ÀÎ °æ¿ì
+	// ì‚­ì œí•  ë…¸ë“œì˜ ì°¨ìˆ˜ê°€ 2ì¸ ê²½ìš°
 	else {
 		
 		TreePointer maxNode = curr->leftChild;
-		TreePointer maxNodeParent = curr; // ÈÄ°èÀÚ ³ëµåÀÇ ºÎ¸ğ ³ëµå
+		TreePointer maxNodeParent = curr; // í›„ê³„ì ë…¸ë“œì˜ ë¶€ëª¨ ë…¸ë“œ
 		
-		//ÈÄ°èÀÚ ³ëµå Å½»öÀ» À§ÇØ 
-		//»èÁ¦ÇÒ ³ëµåÀÇ ¿ŞÂÊ ¼­ºêÆ®¸®¿¡¼­ °¡Àå Å« ³ëµå¸¦ Ã£À½
+		//í›„ê³„ì ë…¸ë“œ íƒìƒ‰ì„ ìœ„í•´ 
+		//ì‚­ì œí•  ë…¸ë“œì˜ ì™¼ìª½ ì„œë¸ŒíŠ¸ë¦¬ì—ì„œ ê°€ì¥ í° ë…¸ë“œë¥¼ ì°¾ìŒ
 		while (maxNode->rightChild != NULL) {
 			maxNodeParent = maxNode;
 			maxNode = maxNode->rightChild;
@@ -298,85 +298,85 @@ void BST_Delete(TreePointer* root, char key[50]) {
 
 		strcpy(curr->name, maxNode->name);
 
-		// ÈÄ°èÀÚ ³ëµåÀÇ Â÷¼ö°¡ 1ÀÎ °æ¿ì
+		// í›„ê³„ì ë…¸ë“œì˜ ì°¨ìˆ˜ê°€ 1ì¸ ê²½ìš°
 		if (maxNode->leftChild != NULL) {
-			if (maxNodeParent->leftChild == maxNode) { // ÈÄ°èÀÚ ³ëµå°¡ ºÎ¸ğ ³ëµåÀÇ ¿ŞÂÊ ÀÚ½ÄÀÎ °æ¿ì
-				maxNodeParent->leftChild = maxNode->leftChild; // ÈÄ°èÀÚ ³ëµå¸¦ »èÁ¦ÇÏ°í ¿ŞÂÊ ÀÚ½ÄÀ¸·Î ´ëÃ¼
+			if (maxNodeParent->leftChild == maxNode) { // í›„ê³„ì ë…¸ë“œê°€ ë¶€ëª¨ ë…¸ë“œì˜ ì™¼ìª½ ìì‹ì¸ ê²½ìš°
+				maxNodeParent->leftChild = maxNode->leftChild; // í›„ê³„ì ë…¸ë“œë¥¼ ì‚­ì œí•˜ê³  ì™¼ìª½ ìì‹ìœ¼ë¡œ ëŒ€ì²´
 			}
-			else { // ÈÄ°èÀÚ ³ëµå°¡ ºÎ¸ğ ³ëµåÀÇ ¿À¸¥ÂÊ ÀÚ½ÄÀÎ °æ¿ì
-				maxNodeParent->rightChild = maxNode->leftChild; // ÈÄ°èÀÚ ³ëµå¸¦ »èÁ¦ÇÏ°í ¿ŞÂÊ ÀÚ½ÄÀ¸·Î ´ëÃ¼
+			else { // í›„ê³„ì ë…¸ë“œê°€ ë¶€ëª¨ ë…¸ë“œì˜ ì˜¤ë¥¸ìª½ ìì‹ì¸ ê²½ìš°
+				maxNodeParent->rightChild = maxNode->leftChild; // í›„ê³„ì ë…¸ë“œë¥¼ ì‚­ì œí•˜ê³  ì™¼ìª½ ìì‹ìœ¼ë¡œ ëŒ€ì²´
 			}
 		}
-		else { // ÈÄ°èÀÚ ³ëµåÀÇ Â÷¼ö°¡ 0ÀÎ °æ¿ì
-			if (maxNodeParent->leftChild == maxNode) { // ÈÄ°èÀÚ ³ëµå°¡ ºÎ¸ğ ³ëµåÀÇ ¿ŞÂÊ ÀÚ½ÄÀÎ °æ¿ì
-				maxNodeParent->leftChild = NULL; // ÈÄ°èÀÚ ³ëµå¸¦ »èÁ¦ÇÏ°í ³Î°ªÀ¸·Î ¹İÈ¯
+		else { // í›„ê³„ì ë…¸ë“œì˜ ì°¨ìˆ˜ê°€ 0ì¸ ê²½ìš°
+			if (maxNodeParent->leftChild == maxNode) { // í›„ê³„ì ë…¸ë“œê°€ ë¶€ëª¨ ë…¸ë“œì˜ ì™¼ìª½ ìì‹ì¸ ê²½ìš°
+				maxNodeParent->leftChild = NULL; // í›„ê³„ì ë…¸ë“œë¥¼ ì‚­ì œí•˜ê³  ë„ê°’ìœ¼ë¡œ ë°˜í™˜
 			}
-			else { // ÈÄ°èÀÚ ³ëµå°¡ ºÎ¸ğ ³ëµåÀÇ ¿À¸¥ÂÊ ÀÚ½ÄÀÎ °æ¿ì
-				maxNodeParent->rightChild = NULL; // ÈÄ°èÀÚ ³ëµå¸¦ »èÁ¦ÇÏ°í ³Î°ªÀ¸·Î ¹İÈ¯
+			else { // í›„ê³„ì ë…¸ë“œê°€ ë¶€ëª¨ ë…¸ë“œì˜ ì˜¤ë¥¸ìª½ ìì‹ì¸ ê²½ìš°
+				maxNodeParent->rightChild = NULL; // í›„ê³„ì ë…¸ë“œë¥¼ ì‚­ì œí•˜ê³  ë„ê°’ìœ¼ë¡œ ë°˜í™˜
 			}
 		}
 	
-		printf("¼º°øÀûÀ¸·Î »èÁ¦µÇ¾ú½À´Ï´Ù.\n");
-		printf("ÀÌµ¿ÇÑ ÇĞ»ı: %s\n", maxNode->name); // ÀÌµ¿ÇÑ ÇĞ»ıÀÇ ÀÌ¸§ Ãâ·Â
-		free(maxNode); // ÈÄ°èÀÚ ³ëµå ¸Ş¸ğ¸® ÇØÁ¦
+		printf("ì„±ê³µì ìœ¼ë¡œ ì‚­ì œë˜ì—ˆìŠµë‹ˆë‹¤.\n");
+		printf("ì´ë™í•œ í•™ìƒ: %s\n", maxNode->name); // ì´ë™í•œ í•™ìƒì˜ ì´ë¦„ ì¶œë ¥
+		free(maxNode); // í›„ê³„ì ë…¸ë“œ ë©”ëª¨ë¦¬ í•´ì œ
 	}
 
 }
 
-//Æ®¸® ÀÙ °³¼ö ±¸ÇÏ±â 
+//íŠ¸ë¦¬ ì ê°œìˆ˜ êµ¬í•˜ê¸° 
 int leaf_count(TreePointer tree) {
 
-	if (tree == NULL) { // ºó Æ®¸®ÀÏ °æ¿ì 0 ¹İÈ¯
+	if (tree == NULL) { // ë¹ˆ íŠ¸ë¦¬ì¼ ê²½ìš° 0 ë°˜í™˜
 		return 0;
 	}
-	else if (tree->leftChild == NULL && tree->rightChild == NULL) { // ÀÙ ³ëµåÀÏ °æ¿ì 1 ¹İÈ¯
+	else if (tree->leftChild == NULL && tree->rightChild == NULL) { // ì ë…¸ë“œì¼ ê²½ìš° 1 ë°˜í™˜
 		return 1;
 	}
 	else {
-		return leaf_count(tree->leftChild) + leaf_count(tree->rightChild); // Àç±ÍÀûÀ¸·Î ÁÂ¿ì ¼­ºêÆ®¸®¿¡¼­ ÀÙ ³ëµå °³¼ö¸¦ ±¸ÇØ¼­ ´õÇÏ±â
+		return leaf_count(tree->leftChild) + leaf_count(tree->rightChild); // ì¬ê·€ì ìœ¼ë¡œ ì¢Œìš° ì„œë¸ŒíŠ¸ë¦¬ì—ì„œ ì ë…¸ë“œ ê°œìˆ˜ë¥¼ êµ¬í•´ì„œ ë”í•˜ê¸°
 	}
 	}
 
-//ÀÔ·Â¹ŞÀº °ªÀÇ Â÷ÀÏµå Ãâ·Â 
+//ì…ë ¥ë°›ì€ ê°’ì˜ ì°¨ì¼ë“œ ì¶œë ¥ 
 void ch(TreePointer root, char key[50]) {
-	TreePointer par = NULL; // ºÎ¸ğ ³ëµå¸¦ °¡¸®Å°´Â Æ÷ÀÎÅÍ 
-	TreePointer curr = search_BST(root,key,&par); // ÀÔ·ÂµÈ Å°°ªÀ» °¡Áö´Â ³ëµå¸¦ Ã£À½
+	TreePointer par = NULL; // ë¶€ëª¨ ë…¸ë“œë¥¼ ê°€ë¦¬í‚¤ëŠ” í¬ì¸í„° 
+	TreePointer curr = search_BST(root,key,&par); // ì…ë ¥ëœ í‚¤ê°’ì„ ê°€ì§€ëŠ” ë…¸ë“œë¥¼ ì°¾ìŒ
 	
-	if (curr == NULL) { //ÇöÀç ³ëµå°¡ ¾ø´Â °æ¿ì 
-		printf("³ëµå°¡ Á¸Àç ÇÏÁö ¾Ê½À´Ï´Ù. \n");
+	if (curr == NULL) { //í˜„ì¬ ë…¸ë“œê°€ ì—†ëŠ” ê²½ìš° 
+		printf("ë…¸ë“œê°€ ì¡´ì¬ í•˜ì§€ ì•ŠìŠµë‹ˆë‹¤. \n");
 		return; 
 
 	}
 
-	 else if (curr->leftChild  == NULL && curr->rightChild == NULL) { //ÇöÀç ³ëµåÀÇ ÀÚ½ÄÀÌ µÑ ´Ù ¾ø´Â °æ¿ì 
-		printf(" ³ëµå´Â Á¸ÀçÇÏ³ª ÀÚ½ÄÀÌ Á¸Àç ÇÏÁö ¾Ê½À´Ï´Ù.\n");
+	 else if (curr->leftChild  == NULL && curr->rightChild == NULL) { //í˜„ì¬ ë…¸ë“œì˜ ìì‹ì´ ë‘˜ ë‹¤ ì—†ëŠ” ê²½ìš° 
+		printf(" ë…¸ë“œëŠ” ì¡´ì¬í•˜ë‚˜ ìì‹ì´ ì¡´ì¬ í•˜ì§€ ì•ŠìŠµë‹ˆë‹¤.\n");
 	}
-	else if (curr->leftChild == NULL) { //¿ŞÂÊ ³ëµå´Â ¾ø°í, ¿À¸¥ÂÊ¸¸ Á¸ÀçÇÏ´Â °æ¿ì 
-		printf("¿À¸¥ÂÊ ÀÚ½Ä¸¸ Á¸Àç, right child = %s \n", curr->rightChild->name);
+	else if (curr->leftChild == NULL) { //ì™¼ìª½ ë…¸ë“œëŠ” ì—†ê³ , ì˜¤ë¥¸ìª½ë§Œ ì¡´ì¬í•˜ëŠ” ê²½ìš° 
+		printf("ì˜¤ë¥¸ìª½ ìì‹ë§Œ ì¡´ì¬, right child = %s \n", curr->rightChild->name);
 	}
-	else if (curr->rightChild == NULL) { //¿ŞÂÊ ³ëµå´Â Á¸ÀçÇÏ°í ¿À¸¥ÂÊÀº ¾ø´Â °æ¿ì
-		printf("¿ŞÂÊ ÀÚ½Ä¸¸ Á¸Àç , left child = %s \n", curr->leftChild->name);
+	else if (curr->rightChild == NULL) { //ì™¼ìª½ ë…¸ë“œëŠ” ì¡´ì¬í•˜ê³  ì˜¤ë¥¸ìª½ì€ ì—†ëŠ” ê²½ìš°
+		printf("ì™¼ìª½ ìì‹ë§Œ ì¡´ì¬ , left child = %s \n", curr->leftChild->name);
 	}
-	else { //ÀÚ½ÄÀÌ µÑ´Ù Á¸ÀçÇÏ´Â °æ¿ì
-		printf("ÀÚ½Ä µÑ´Ù Á¸Àç left child = %s, right child = %s \n", curr->leftChild->name, curr->rightChild->name);
+	else { //ìì‹ì´ ë‘˜ë‹¤ ì¡´ì¬í•˜ëŠ” ê²½ìš°
+		printf("ìì‹ ë‘˜ë‹¤ ì¡´ì¬ left child = %s, right child = %s \n", curr->leftChild->name, curr->rightChild->name);
 	}
 }
 
-//³ôÀÌ ±¸Çö ÇÔ¼ö 
+//ë†’ì´ êµ¬í˜„ í•¨ìˆ˜ 
 int get_ht(TreePointer curr, char key[50], int count) {
 	
-	//³ëµå°¡  ³ÎÀÌ¸é ³ôÀÌ 0À¸·Î ¹İÈ¯ 
+	//ë…¸ë“œê°€  ë„ì´ë©´ ë†’ì´ 0ìœ¼ë¡œ ë°˜í™˜ 
 	if (curr == NULL) {
 		return 0;
 	}
-	// ÀÔ·ÂµÈ key°ªÀ» °¡Áö´Â ³ëµå¸¦ Ã£À¸¸é ±× ¶§±îÁöÀÇ ³ôÀÌ ¹İÈ¯
+	// ì…ë ¥ëœ keyê°’ì„ ê°€ì§€ëŠ” ë…¸ë“œë¥¼ ì°¾ìœ¼ë©´ ê·¸ ë•Œê¹Œì§€ì˜ ë†’ì´ ë°˜í™˜
 	if (strcmp(key, curr->name) == 0) {
 		return count;
 	}
-	if (strcmp(key, curr->name) < 0) { // ÀÔ·ÂµÈ key°ªÀÌ ÇöÀç ³ëµåÀÇ key°ªº¸´Ù ÀÛÀ¸¸é ¿ŞÂÊ ¼­ºêÆ®¸®·Î ÀÌµ¿ÇÏ¿© ³ôÀÌ °è»ê
+	if (strcmp(key, curr->name) < 0) { // ì…ë ¥ëœ keyê°’ì´ í˜„ì¬ ë…¸ë“œì˜ keyê°’ë³´ë‹¤ ì‘ìœ¼ë©´ ì™¼ìª½ ì„œë¸ŒíŠ¸ë¦¬ë¡œ ì´ë™í•˜ì—¬ ë†’ì´ ê³„ì‚°
  		return get_ht(curr->leftChild, key, count + 1);
 	}
-	else { // ÀÔ·ÂµÈ key°ªÀÌ ÇöÀç ³ëµåÀÇ key°ªº¸´Ù Å©¸é ¿À¸¥ÂÊ ¼­ºêÆ®¸®·Î ÀÌµ¿ÇÏ¿© ³ôÀÌ °è»ê
+	else { // ì…ë ¥ëœ keyê°’ì´ í˜„ì¬ ë…¸ë“œì˜ keyê°’ë³´ë‹¤ í¬ë©´ ì˜¤ë¥¸ìª½ ì„œë¸ŒíŠ¸ë¦¬ë¡œ ì´ë™í•˜ì—¬ ë†’ì´ ê³„ì‚°
 		return get_ht(curr->rightChild, key, count + 1);
 	}
 
