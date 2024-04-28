@@ -1,7 +1,7 @@
 """
 바이오 컴퓨팅 과제 5 - Local Pairwise Sequence Alignment 
-D-DAY 4/28
-2019253084 전유성
+
+
 
 + 변수명 수정!
 <요약> 
