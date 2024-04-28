@@ -1,9 +1,6 @@
 """
 바이오 컴퓨팅 과제 5 - Local Pairwise Sequence Alignment 
 
-
-
-+ 변수명 수정!
 <요약> 
 두 개의 DNA 서열 읽어와서 매칭 되면 +2점 미스 매칭 -2 갭은 -1점 사용하여 Local Pairwise
 Sequence Alignment 구하고 화면에 스코어 점수 표시하기 
