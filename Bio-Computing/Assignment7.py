@@ -1,8 +1,6 @@
 """
 Bio-Computing - Assignment7 Pattern Finding
 
-2019253084 전유성
-
 The input sequence is case-insensitive.
 If the input file in a command-line argument does not exist, then print "No input file".
 If the input file has nothing, then print "No DNA sequence".
