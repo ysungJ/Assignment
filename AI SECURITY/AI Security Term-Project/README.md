@@ -14,3 +14,6 @@ NB15를 이용해 유해 트래픽 분류
 
 - 학습 데이터 (배포) -> 약 17만 개의 데이터로 구성
 - 테스트 데이터 (평가) -> 약 8만개의 데이터로 구성
+
+# 참고 사이트 
+https://research.unsw.edu.au/projects/unsw-nb15-dataset <UNSW 대학 NB15 데이터셋>
