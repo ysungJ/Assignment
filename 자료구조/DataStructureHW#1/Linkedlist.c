@@ -1,24 +1,24 @@
-//2019253084 ÀüÀ¯¼º µ¥ÀÌÅ¸±¸Á¶·Ğ hw 1¹ø °úÁ¦
+//2019253084 ì „ìœ ì„± ë°ì´íƒ€êµ¬ì¡°ë¡  hw 1ë²ˆ ê³¼ì œ
 #define _CRT_SECURE_NO_WARNINGS
-#include<stdio.h> //ÆÄÀÏ ÀÔÃâ·ÂÀ» À§ÇØ Çì´õÆÄÀÏ stdio.h ¼±¾ğ
-#include<string.h> // ¹®ÀÚ¿­ ¼±¾ğÀ» À§ÇØ Çì´õÆÄÀÏ string.h ¼±¾ğ
+#include<stdio.h> //íŒŒì¼ ì…ì¶œë ¥ì„ ìœ„í•´ í—¤ë”íŒŒì¼ stdio.h ì„ ì–¸
+#include<string.h> // ë¬¸ìì—´ ì„ ì–¸ì„ ìœ„í•´ í—¤ë”íŒŒì¼ string.h ì„ ì–¸
 #include<stdlib.h> 
 #include<windows.h>
 
-//»èÁ¦ÇÏ´Â °æ¿ì¸¦ ÂüÀÌ¸é 1 °ÅÁşÀÌ¸é 0
+//ì‚­ì œí•˜ëŠ” ê²½ìš°ë¥¼ ì°¸ì´ë©´ 1 ê±°ì§“ì´ë©´ 0
 #define TRUE 1
 #define FALSE 0
 #define Sleep_time 1000
 
-// ±¸Á¶Ã¼ µ¥ÀÌÅÍ Å¸ÀÔ ¼±¾ğ
+// êµ¬ì¡°ì²´ ë°ì´í„° íƒ€ì… ì„ ì–¸
 typedef struct Listdata {
-	char name[30]; //ÇĞ»ı¸í
-	int id; //ÇĞ¹ø
-	char phone[20]; //ÀüÈ­¹øÈ£
-	char province[30]; //°ÅÁÖÁö¿ª
+	char name[30]; //í•™ìƒëª…
+	int id; //í•™ë²ˆ
+	char phone[20]; //ì „í™”ë²ˆí˜¸
+	char province[30]; //ê±°ì£¼ì§€ì—­
 } listData;
 
-//¸®½ºÆ® ³ëµå Á¤ÀÇ
+//ë¦¬ìŠ¤íŠ¸ ë…¸ë“œ ì •ì˜
 typedef struct Listnode* type_listNode_pointer;
 typedef struct Listnode {
 	listData data;
@@ -26,22 +26,22 @@ typedef struct Listnode {
 } listNode;
 
 
-//¸®½ºÆ®ÀÇ Ã¹ ¹øÂ° ³ëµå¸¦ °¡¸®Å°´Â head´Â ´ÙÀ½°ú °°ÀÌ Á¤ÀÇÇÑ´Ù.
+//ë¦¬ìŠ¤íŠ¸ì˜ ì²« ë²ˆì§¸ ë…¸ë“œë¥¼ ê°€ë¦¬í‚¤ëŠ” headëŠ” ë‹¤ìŒê³¼ ê°™ì´ ì •ì˜í•œë‹¤.
 typedef struct LinkedList {
 	type_listNode_pointer head;
 	int length;
 } linkedList;
 
-//ÇÔ¼ö¼±¾ğ
-void printList(linkedList* L); //print ÇÔ¼ö ¼±¾ğ
-type_listNode_pointer search(linkedList* L, int x);// search ÇÔ¼ö ¼±¾ğ
-void insert(linkedList* L, listNode* pre, listData x);// insert ÇÔ¼ö ¼±¾ğ
-void delete(linkedList* L, int x);// delete ÇÔ¼ö ¼±¾ğ
-void reverse(linkedList* L);//reverse ÇÔ¼ö ¼±¾ğ
-int getLength(linkedList* L);// ¸®½ºÆ® ³ëµå °³¼ö Ãâ·Â ÇÔ¼ö ¼±¾ğ
-void insertLast(linkedList* L, listData item); //¸¶Áö¸· ³ëµå¿¡ »ğÀÔÇÏ´Â ÇÔ¼ö
-linkedList* file_read(linkedList* L, char* txt_file); //ÆÄÀÏ ÀĞ¾î¿À±â
-int menu(); //¸Ş´º ÇÔ¼ö ¼±¾ğ
+//í•¨ìˆ˜ì„ ì–¸
+void printList(linkedList* L); //print í•¨ìˆ˜ ì„ ì–¸
+type_listNode_pointer search(linkedList* L, int x);// search í•¨ìˆ˜ ì„ ì–¸
+void insert(linkedList* L, listNode* pre, listData x);// insert í•¨ìˆ˜ ì„ ì–¸
+void delete(linkedList* L, int x);// delete í•¨ìˆ˜ ì„ ì–¸
+void reverse(linkedList* L);//reverse í•¨ìˆ˜ ì„ ì–¸
+int getLength(linkedList* L);// ë¦¬ìŠ¤íŠ¸ ë…¸ë“œ ê°œìˆ˜ ì¶œë ¥ í•¨ìˆ˜ ì„ ì–¸
+void insertLast(linkedList* L, listData item); //ë§ˆì§€ë§‰ ë…¸ë“œì— ì‚½ì…í•˜ëŠ” í•¨ìˆ˜
+linkedList* file_read(linkedList* L, char* txt_file); //íŒŒì¼ ì½ì–´ì˜¤ê¸°
+int menu(); //ë©”ë‰´ í•¨ìˆ˜ ì„ ì–¸
 
 int main(void) {
 	linkedList LL = { NULL, 0 };
@@ -49,49 +49,49 @@ int main(void) {
 	int exit = 0, Snum1;
 	while (exit == 0) {
 		switch (menu()) {
-		case 1: // ÆÄÀÏ ÀĞ¾î¿À±â
+		case 1: // íŒŒì¼ ì½ì–´ì˜¤ê¸°
 			file_read(&LL, "student_data.txt");
-			printf(" ÆÄÀÏÀ» ÀĞ¾î ¿Ô½À´Ï´Ù. \n");
+			printf(" íŒŒì¼ì„ ì½ì–´ ì™”ìŠµë‹ˆë‹¤. \n");
 			continue;
 
-		case 2: //¸®½ºÆ® Ãâ·Â
+		case 2: //ë¦¬ìŠ¤íŠ¸ ì¶œë ¥
 			printList(&LL);
 			continue;
-		case 3: //°Ë»ö
-			printf("ID ÀÔ·Â : ");
+		case 3: //ê²€ìƒ‰
+			printf("ID ì…ë ¥ : ");
 			scanf("%d", &Snum1);
 			//gets(Snum1);
 			type_listNode_pointer temp = search(&LL, Snum1);
 			if (temp != NULL) {
-				printf("ÀÌ¸§: %s ÇĞ¹ø: %d ÀüÈ­¹øÈ£: %s Áö¿ª: %s \n ", temp->data.name, temp->data.id, temp->data.phone, temp->data.province);
+				printf("ì´ë¦„: %s í•™ë²ˆ: %d ì „í™”ë²ˆí˜¸: %s ì§€ì—­: %s \n ", temp->data.name, temp->data.id, temp->data.phone, temp->data.province);
 			}
 			else
 			{
-				printf("ÀÏÄ¡ÇÏ´Â ÇĞ»ıÀÌ ¾ø½À´Ï´Ù.\n");
+				printf("ì¼ì¹˜í•˜ëŠ” í•™ìƒì´ ì—†ìŠµë‹ˆë‹¤.\n");
 
 			}
 			continue;
 		case 4: //insert
-			printf("ÇĞ»ı Á¤º¸ ÀÔ·Â(ÀÌ¸§ ÇĞ¹ø ÀüÈ­¹øÈ£ Áö¿ª) : ");
+			printf("í•™ìƒ ì •ë³´ ì…ë ¥(ì´ë¦„ í•™ë²ˆ ì „í™”ë²ˆí˜¸ ì§€ì—­) : ");
 			listData New_data;
 			scanf("%s %d %s %s", New_data.name, &New_data.id, New_data.phone, New_data.province);
 			insertLast(&LL, New_data);
-			printf("»ğÀÔ ¿Ï·á\n");
+			printf("ì‚½ì… ì™„ë£Œ\n");
 			break;
 		case 5: // Delete
-			printf("»èÁ¦ÇÒ ÇĞ»ıÀÇ ÇĞ¹ø ÀÔ·Â : ");
+			printf("ì‚­ì œí•  í•™ìƒì˜ í•™ë²ˆ ì…ë ¥ : ");
 			scanf("%d", &Snum1);
 			delete(&LL, Snum1);
-			printf("»èÁ¦ ¿Ï·á\n");
+			printf("ì‚­ì œ ì™„ë£Œ\n");
 			continue;
 
-		case 6: //reverse ÇÔ¼ö ¼±¾ğ
-			printf("Àç¹èÄ¡ÇÒ ÇĞ»ı ÀÔ·Â : ");
+		case 6: //reverse í•¨ìˆ˜ ì„ ì–¸
+			printf("ì¬ë°°ì¹˜í•  í•™ìƒ ì…ë ¥ : ");
 			scanf("%d", Snum1);
 			reverse(&LL);
 			continue;
 
-		case 7: // Á¾·á
+		case 7: // ì¢…ë£Œ
 			exit;
 			break;
 
@@ -102,18 +102,18 @@ int main(void) {
 }
 
 
-void printList(linkedList* L)//print ÇÔ¼ö Á¤ÀÇ 
+void printList(linkedList* L)//print í•¨ìˆ˜ ì •ì˜ 
 {
 	type_listNode_pointer p;
 	printf("L = (\n");
 	p = L->head;
 	while (p) {
-		printf("\n ÀÌ¸§ :% s ÇĞ¹ø : %d ÀüÈ­¹øÈ£ :%s Áö¿ª : %s \n", p->data.name, p->data.id, p->data.phone, p->data.province);
+		printf("\n ì´ë¦„ :% s í•™ë²ˆ : %d ì „í™”ë²ˆí˜¸ :%s ì§€ì—­ : %s \n", p->data.name, p->data.id, p->data.phone, p->data.province);
 		p = p->link;
 	}
 	printf("\n)\n");
 }
-type_listNode_pointer search(linkedList* L, int x) // search ÇÔ¼ö Á¤ÀÇ
+type_listNode_pointer search(linkedList* L, int x) // search í•¨ìˆ˜ ì •ì˜
 {
 	type_listNode_pointer temp = L->head;
 
@@ -147,7 +147,7 @@ void insert(linkedList* L, listNode* pre, listData x) {
 
 }
 
-void delete(linkedList* L, int x) {// delete ÇÔ¼ö Á¤ÀÇ
+void delete(linkedList* L, int x) {// delete í•¨ìˆ˜ ì •ì˜
 
 
 	type_listNode_pointer pre = L->head;
@@ -176,7 +176,7 @@ void delete(linkedList* L, int x) {// delete ÇÔ¼ö Á¤ÀÇ
 
 	return TRUE;
 }
-void reverse(linkedList* L) //reverse ÇÔ¼ö Á¤ÀÇ
+void reverse(linkedList* L) //reverse í•¨ìˆ˜ ì •ì˜
 {
 	listNode* p, * q, * r;
 
@@ -209,7 +209,7 @@ void insertLast(linkedList* L, listData item) {
 	}
 	L->length++;
 }
-int getLength(linkedList* L) // ¸®½ºÆ® ³ëµå °³¼ö Ãâ·Â ÇÔ¼ö Á¤ÀÇ
+int getLength(linkedList* L) // ë¦¬ìŠ¤íŠ¸ ë…¸ë“œ ê°œìˆ˜ ì¶œë ¥ í•¨ìˆ˜ ì •ì˜
 {
 	return L->length;
 }
@@ -217,12 +217,12 @@ int getLength(linkedList* L) // ¸®½ºÆ® ³ëµå °³¼ö Ãâ·Â ÇÔ¼ö Á¤ÀÇ
 linkedList* file_read(linkedList* L, char* txt_file) {
 	FILE* pFile = fopen(txt_file, "r");
 	if (pFile == NULL)
-		printf("%sÀÇ ÆÄÀÏÀÌ ¾ø¾î Á¤»óÀûÀ¸·Î ¶ßÁö ¾Ê½À´Ï´Ù.", txt_file);
+		printf("%sì˜ íŒŒì¼ì´ ì—†ì–´ ì •ìƒì ìœ¼ë¡œ ëœ¨ì§€ ì•ŠìŠµë‹ˆë‹¤.", txt_file);
 	else {
-		char name[30]; //ÇĞ»ı¸í
-		int id = 0; //ÇĞ¹ø
-		char phone[20]; //ÀüÈ­¹øÈ£
-		char province[30]; //°ÅÁÖÁö¿ª
+		char name[30]; //í•™ìƒëª…
+		int id = 0; //í•™ë²ˆ
+		char phone[20]; //ì „í™”ë²ˆí˜¸
+		char province[30]; //ê±°ì£¼ì§€ì—­
 		while (!feof(pFile)) {
 
 			fscanf(pFile, "%s %d %s %s \n", name, &id, phone, province);
@@ -252,14 +252,14 @@ int menu() {
 
 	char string[5];
 	printf("====================\n");
-	printf("¸Ş´º¸¦ ÀÔ·ÂÇÏ¼¼¿ä.\n");
-	printf("1¹øÀ» ´©¸£¸é ÆÄÀÏÀ» °¡Á®¿Í ÀĞ°Ô µË´Ï´Ù.\n");
-	printf("2¹øÀ» ´©¸£¸é °¡Á®¿Â ÆÄÀÏ ¸®½ºÆ®¸¦ Ãâ·ÂÇÕ´Ï´Ù.\n");
-	printf("3¹øÀ» ´©¸£¸é °Ë»öÀÌ µË´Ï´Ù.\n");
-	printf("4¹øÀ» ´©¸£¸é »ğÀÔ µË´Ï´Ù.\n");
-	printf("5¹øÀ» ´©¸£¸é »èÁ¦ µË´Ï´Ù.\n");
-	printf("6¹øÀ» ´©¸£¸é ¿ª¼ø¹èÄ¡°¡ µË´Ï´Ù.\n");
-	printf("7¹øÀ» ´©¸£¸é Á¾·á°¡ µË´Ï´Ù.\n");
+	printf("ë©”ë‰´ë¥¼ ì…ë ¥í•˜ì„¸ìš”.\n");
+	printf("1ë²ˆì„ ëˆ„ë¥´ë©´ íŒŒì¼ì„ ê°€ì ¸ì™€ ì½ê²Œ ë©ë‹ˆë‹¤.\n");
+	printf("2ë²ˆì„ ëˆ„ë¥´ë©´ ê°€ì ¸ì˜¨ íŒŒì¼ ë¦¬ìŠ¤íŠ¸ë¥¼ ì¶œë ¥í•©ë‹ˆë‹¤.\n");
+	printf("3ë²ˆì„ ëˆ„ë¥´ë©´ ê²€ìƒ‰ì´ ë©ë‹ˆë‹¤.\n");
+	printf("4ë²ˆì„ ëˆ„ë¥´ë©´ ì‚½ì… ë©ë‹ˆë‹¤.\n");
+	printf("5ë²ˆì„ ëˆ„ë¥´ë©´ ì‚­ì œ ë©ë‹ˆë‹¤.\n");
+	printf("6ë²ˆì„ ëˆ„ë¥´ë©´ ì—­ìˆœë°°ì¹˜ê°€ ë©ë‹ˆë‹¤.\n");
+	printf("7ë²ˆì„ ëˆ„ë¥´ë©´ ì¢…ë£Œê°€ ë©ë‹ˆë‹¤.\n");
 
 
 	scanf("%s", &string);
@@ -278,7 +278,7 @@ int menu() {
 	}
 	else {
 		system("cls");
-		printf("%s´Â Àß¸øµÈ ÀÔ·ÂµÈ °ªÀÔ´Ï´Ù \n", string);
+		printf("%sëŠ” ì˜ëª»ëœ ì…ë ¥ëœ ê°’ì…ë‹ˆë‹¤ \n", string);
 		Sleep(Sleep_time);
 	}
 	return 0;
