@@ -66,6 +66,7 @@ Practice of implementing pairwise sequence alignment
 ----------------
 ## 과제6
 [Assignment 6](https://github.com/ysungJ/Assignment/blob/main/Bio-Computing/Assignment6.py)
+
 Multiple Sequence Alignment
 
 + **Purpose**
